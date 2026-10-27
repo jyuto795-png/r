@@ -1,0 +1,1625 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>牛角 Gyu-Kaku｜焼肉でもっと、幸せに。</title>
+    <meta
+      name="description"
+      content="牛角のメニュー、こだわり、歴史、お知らせ、店舗検索をご紹介するホームページデザインです。"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;900&family=Noto+Serif+JP:wght@500;600;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --red: #c91520;
+        --ink: #171717;
+        --cream: #f6f3ed;
+        --muted: #8e8982;
+        --line: #d9d4cb;
+        --serif: "Noto Serif JP", serif;
+        --sans: "Noto Sans JP", sans-serif;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 82px;
+      }
+      body {
+        margin: 0;
+        background: var(--cream);
+        color: var(--ink);
+        font-family: var(--sans);
+        line-height: 1.7;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      button,
+      input {
+        font: inherit;
+      }
+      button {
+        cursor: pointer;
+      }
+      .topbar {
+        height: 78px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 5vw;
+        background: #fff;
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        border-bottom: 1px solid #eee;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        min-width: 190px;
+      }
+      .brand-mark {
+        width: 48px;
+        height: 48px;
+        background: var(--ink);
+        color: white;
+        display: grid;
+        place-items: center;
+        font-weight: 900;
+        font-size: 22px;
+        border-radius: 3px;
+        position: relative;
+        letter-spacing: -3px;
+      }
+      .brand-mark:after {
+        content: "GYU-KAKU";
+        position: absolute;
+        bottom: 2px;
+        font-size: 5px;
+        letter-spacing: 1px;
+      }
+      .brand-name {
+        font-size: 24px;
+        font-weight: 900;
+        letter-spacing: -1px;
+        line-height: 1;
+      }
+      .brand-name small {
+        display: block;
+        font-size: 8px;
+        letter-spacing: 1px;
+        color: #777;
+        margin-top: 5px;
+      }
+      .nav {
+        display: flex;
+        align-items: center;
+        gap: clamp(12px, 2.2vw, 32px);
+        font-size: 12px;
+        font-weight: 700;
+      }
+      .nav a {
+        transition: color 0.2s;
+      }
+      .nav a:hover {
+        color: var(--red);
+      }
+      .reserve {
+        background: var(--red);
+        color: #fff;
+        border: 0;
+        padding: 13px 20px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        transition: 0.25s;
+      }
+      .reserve:hover {
+        background: #99101a;
+        transform: translateY(-2px);
+      }
+      .menu-toggle {
+        display: none;
+        background: none;
+        border: 0;
+        font-size: 25px;
+      }
+      .hero {
+        height: min(690px, 75vw);
+        min-height: 480px;
+        position: relative;
+        overflow: hidden;
+        background: #191512;
+        color: #fff;
+      }
+      .slides,
+      .slide {
+        position: absolute;
+        inset: 0;
+      }
+      .slide {
+        opacity: 0;
+        transition: opacity 1s;
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        align-items: center;
+      }
+      .slide.active {
+        opacity: 1;
+      }
+      .slide:before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(
+            90deg,
+            rgba(0, 0, 0, 0.82),
+            rgba(0, 0, 0, 0.42) 40%,
+            rgba(0, 0, 0, 0.02) 78%
+          ),
+          linear-gradient(0deg, rgba(0, 0, 0, 0.22), transparent 45%);
+      }
+      .slide-content {
+        position: relative;
+        z-index: 1;
+        margin-left: 9%;
+        max-width: 480px;
+        animation: rise 0.8s both;
+      }
+      .eyebrow {
+        color: #e14b4e;
+        font-size: 11px;
+        font-weight: 900;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+      }
+      .hero h1 {
+        font: 900 clamp(38px, 5.7vw, 76px)/1.45 var(--serif);
+        letter-spacing: 0.05em;
+        margin: 20px 0;
+      }
+      .hero p {
+        font-size: 14px;
+        letter-spacing: 0.08em;
+        margin: 0 0 28px;
+      }
+      .cta {
+        display: inline-flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 32px;
+        background: var(--red);
+        color: #fff;
+        padding: 15px 20px;
+        min-width: 190px;
+        font-size: 12px;
+        font-weight: 700;
+        transition: 0.25s;
+        border: 1px solid var(--red);
+      }
+      .cta:hover {
+        background: #fff;
+        color: var(--red);
+      }
+      .cta.dark {
+        background: #171717;
+        border-color: #171717;
+      }
+      .cta.dark:hover {
+        background: transparent;
+        color: #171717;
+      }
+      .hero-arrows {
+        position: absolute;
+        z-index: 2;
+        top: 50%;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 24px;
+        pointer-events: none;
+      }
+      .arrow {
+        pointer-events: auto;
+        background: #1118;
+        color: white;
+        border: 1px solid #ffffff70;
+        border-radius: 50%;
+        width: 44px;
+        height: 44px;
+        font-size: 22px;
+        transition: 0.2s;
+      }
+      .arrow:hover {
+        background: var(--red);
+      }
+      .dots {
+        position: absolute;
+        z-index: 3;
+        bottom: 28px;
+        left: 9%;
+        display: flex;
+        gap: 10px;
+      }
+      .dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        border: 1px solid #fff;
+        background: transparent;
+        padding: 0;
+      }
+      .dot.active {
+        background: #fff;
+      }
+      .hero-stamp {
+        position: absolute;
+        right: 8%;
+        bottom: 15%;
+        z-index: 2;
+        text-align: center;
+        transform: rotate(-7deg);
+        font-family: var(--serif);
+        font-weight: 900;
+        font-size: clamp(38px, 6vw, 82px);
+        line-height: 1;
+        color: #fff;
+        text-shadow: 0 4px 18px #0008;
+      }
+      .hero-stamp small {
+        display: block;
+        font: 500 11px var(--sans);
+        letter-spacing: 0.2em;
+        margin-top: 14px;
+      }
+      .section {
+        padding: 92px 6vw;
+      }
+      .section-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        gap: 30px;
+        margin-bottom: 36px;
+      }
+      .section-title {
+        font: 700 clamp(30px, 4vw, 45px)/1.4 var(--serif);
+        margin: 4px 0 0;
+        letter-spacing: 0.04em;
+      }
+      .section-desc {
+        max-width: 430px;
+        font-size: 13px;
+        color: #777;
+        margin: 0;
+      }
+      .menu-section {
+        display: grid;
+        grid-template-columns: 0.75fr 2fr;
+        gap: 5vw;
+        align-items: start;
+      }
+      .menu-intro {
+        position: sticky;
+        top: 115px;
+      }
+      .menu-intro p {
+        font-size: 13px;
+        color: #6e6a64;
+        margin: 20px 0 28px;
+      }
+      .menu-grid {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 14px;
+      }
+      .menu-card {
+        min-width: 0;
+      }
+      .photo {
+        overflow: hidden;
+        background: #ddd;
+        position: relative;
+      }
+      .photo img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+        transition: transform 0.65s cubic-bezier(0.2, 0.7, 0.2, 1);
+      }
+      .menu-card:hover img,
+      .news-card:hover img,
+      .history-photo:hover img {
+        transform: scale(1.06);
+      }
+      .menu-card .photo {
+        aspect-ratio: 1/1;
+      }
+      .menu-card h3 {
+        font-size: 14px;
+        margin: 13px 0 4px;
+      }
+      .menu-card p {
+        font-size: 11px;
+        color: #817b73;
+        margin: 0;
+      }
+      .feature {
+        position: relative;
+        background: #111;
+        color: white;
+        overflow: hidden;
+        padding: 88px 6vw;
+      }
+      .feature-bg {
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(90deg, #111 0%, #111e 42%, #1118 100%),
+          url("https://images.unsplash.com/photo-1558030006-450675393462?auto=format&fit=crop&w=2000&q=85")
+            center/cover;
+        opacity: 0.95;
+      }
+      .feature-inner {
+        position: relative;
+        z-index: 1;
+      }
+      .feature .section-desc {
+        color: #d0cbc4;
+      }
+      .feature-cards {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
+        margin-top: 38px;
+      }
+      .feature-card {
+        padding: 26px 22px;
+        border: 1px solid #ffffff70;
+        background: #1117;
+        min-height: 185px;
+        transition: 0.25s;
+      }
+      .feature-card:hover {
+        background: #c91520dd;
+        transform: translateY(-5px);
+      }
+      .feature-icon {
+        font-size: 27px;
+        margin-bottom: 14px;
+      }
+      .feature-card h3 {
+        font-family: var(--serif);
+        font-size: 17px;
+        margin: 0 0 9px;
+      }
+      .feature-card p {
+        font-size: 11px;
+        color: #d1ccc7;
+        margin: 0;
+      }
+      .history {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 38px;
+        align-items: center;
+      }
+      .history-photo {
+        aspect-ratio: 4/3;
+        overflow: hidden;
+        position: relative;
+        background: #aaa;
+      }
+      .history-photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: grayscale(1);
+        transition: transform 0.6s;
+      }
+      .history-photo:after {
+        content: "1996";
+        position: absolute;
+        right: 18px;
+        bottom: 10px;
+        font: 900 48px var(--serif);
+        color: #fff;
+        text-shadow: 0 2px 8px #000;
+      }
+      .history-copy p {
+        font-size: 13px;
+        color: #777;
+      }
+      .timeline {
+        border-left: 1px solid #aaa;
+        padding-left: 24px;
+      }
+      .timeline-item {
+        display: grid;
+        grid-template-columns: 54px 1fr;
+        gap: 12px;
+        margin: 0 0 19px;
+        font-size: 12px;
+      }
+      .timeline-item strong {
+        font-size: 13px;
+      }
+      .timeline-item span {
+        color: #706b64;
+      }
+      .news-section {
+        background: #151515;
+        color: white;
+      }
+      .news-section .section-desc {
+        color: #aaa;
+      }
+      .news-layout {
+        display: grid;
+        grid-template-columns: 0.65fr 2fr;
+        gap: 5vw;
+      }
+      .news-cards {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+      }
+      .news-card {
+        background: #f8f6f1;
+        color: #191919;
+        overflow: hidden;
+      }
+      .news-card .photo {
+        aspect-ratio: 1.65;
+      }
+      .news-card img {
+        transition: transform 0.6s;
+      }
+      .news-body {
+        padding: 17px;
+      }
+      .tag {
+        display: inline-block;
+        color: var(--red);
+        border: 1px solid #dba5a5;
+        padding: 2px 7px;
+        font-size: 9px;
+        font-weight: 700;
+      }
+      .news-date {
+        font-size: 10px;
+        color: #888;
+        margin-left: 8px;
+      }
+      .news-card h3 {
+        font: 700 15px/1.6 var(--serif);
+        margin: 10px 0 8px;
+      }
+      .news-card p {
+        font-size: 11px;
+        color: #777;
+        margin: 0;
+      }
+      .store {
+        position: relative;
+        background: #201b16;
+        color: white;
+        padding: 74px 6vw;
+        overflow: hidden;
+      }
+      .store:before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(90deg, #111d, #1118),
+          url("https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1800&q=85")
+            center/cover;
+      }
+      .store-inner {
+        position: relative;
+        display: grid;
+        grid-template-columns: 1fr 1.1fr;
+        gap: 6vw;
+        align-items: center;
+      }
+      .store h2 {
+        font: 700 clamp(30px, 4vw, 43px) var(--serif);
+        margin: 8px 0;
+      }
+      .store p {
+        font-size: 13px;
+        color: #ddd;
+      }
+      .searchbox {
+        background: #fff;
+        color: #222;
+        padding: 28px;
+        box-shadow: 0 15px 45px #0004;
+      }
+      .searchbox label {
+        display: block;
+        font-size: 12px;
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
+      .searchrow {
+        display: flex;
+        gap: 8px;
+      }
+      .searchrow input {
+        flex: 1;
+        min-width: 0;
+        border: 1px solid #ddd;
+        padding: 13px;
+        font-size: 13px;
+      }
+      .searchrow button {
+        background: #171717;
+        color: #fff;
+        border: 0;
+        padding: 0 25px;
+        font-size: 12px;
+      }
+      .quicklinks {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-top: 14px;
+      }
+      .quicklinks button {
+        border: 1px solid #ddd;
+        background: white;
+        padding: 8px 13px;
+        font-size: 11px;
+      }
+      .quicklinks button:hover {
+        border-color: var(--red);
+        color: var(--red);
+      }
+      .search-result {
+        font-size: 12px;
+        margin-top: 14px;
+        color: #555;
+        min-height: 20px;
+      }
+      .footer {
+        background: #111;
+        color: white;
+        padding: 48px 6vw 22px;
+      }
+      .footer-top {
+        display: flex;
+        justify-content: space-between;
+        gap: 30px;
+        align-items: start;
+      }
+      .footer .brand-mark {
+        background: #fff;
+        color: #111;
+      }
+      .footer .brand-name {
+        color: #fff;
+      }
+      .footer-links {
+        display: flex;
+        gap: 48px;
+      }
+      .footer-links div {
+        display: grid;
+        gap: 9px;
+        font-size: 11px;
+        color: #ccc;
+      }
+      .footer-links strong {
+        color: #fff;
+        margin-bottom: 4px;
+      }
+      .social {
+        display: flex;
+        gap: 12px;
+        font-size: 12px;
+      }
+      .copyright {
+        border-top: 1px solid #ffffff2c;
+        margin-top: 36px;
+        padding-top: 18px;
+        text-align: center;
+        color: #888;
+        font-size: 10px;
+      }
+      .backtop {
+        position: fixed;
+        bottom: 22px;
+        right: 22px;
+        width: 42px;
+        height: 42px;
+        border: 0;
+        border-radius: 50%;
+        background: #c91520;
+        color: #fff;
+        font-size: 20px;
+        z-index: 20;
+        box-shadow: 0 4px 14px #0003;
+        opacity: 0;
+        pointer-events: none;
+        transition: 0.25s;
+      }
+      .backtop.show {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .reveal {
+        opacity: 0;
+        transform: translateY(25px);
+        transition:
+          opacity 0.7s,
+          transform 0.7s;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: none;
+      }
+      .modal-backdrop {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: #0009;
+        z-index: 100;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+      .modal-backdrop.open {
+        display: flex;
+      }
+      .modal {
+        background: var(--cream);
+        padding: 35px;
+        max-width: 520px;
+        width: 100%;
+        position: relative;
+      }
+      .modal h2 {
+        font: 700 26px var(--serif);
+      }
+      .modal p {
+        font-size: 13px;
+        color: #666;
+      }
+      .modal-close {
+        position: absolute;
+        right: 14px;
+        top: 10px;
+        border: 0;
+        background: none;
+        font-size: 25px;
+      }
+      @keyframes rise {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @media (max-width: 1000px) {
+        .nav {
+          gap: 12px;
+        }
+        .nav a {
+          font-size: 10px;
+        }
+        .brand {
+          min-width: auto;
+        }
+        .brand-name {
+          font-size: 20px;
+        }
+        .menu-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        .menu-section {
+          grid-template-columns: 1fr;
+        }
+        .menu-intro {
+          position: static;
+        }
+        .feature-cards {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .history {
+          grid-template-columns: 1fr 1fr;
+        }
+        .timeline {
+          grid-column: 1/-1;
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 12px;
+          border-left: 0;
+          border-top: 1px solid #aaa;
+          padding: 22px 0 0;
+        }
+        .timeline-item {
+          display: block;
+        }
+        .timeline-item strong {
+          display: block;
+        }
+        .news-layout {
+          grid-template-columns: 1fr;
+        }
+        .store-inner {
+          grid-template-columns: 1fr 1.2fr;
+        }
+        .footer-links {
+          gap: 20px;
+        }
+      }
+      @media (max-width: 850px) {
+        .topbar {
+          height: 68px;
+          padding: 0 18px;
+        }
+        .brand-mark {
+          width: 42px;
+          height: 42px;
+        }
+        .brand-name {
+          font-size: 19px;
+        }
+        .menu-toggle {
+          display: block;
+          width: 44px;
+          height: 44px;
+          color: var(--ink);
+        }
+        .nav {
+          display: none;
+          position: absolute;
+          top: 68px;
+          left: 0;
+          right: 0;
+          max-height: calc(100vh - 68px);
+          max-height: calc(100dvh - 68px);
+          overflow-y: auto;
+          background: #fff;
+          padding: 12px 20px 20px;
+          box-shadow: 0 10px 20px #0001;
+          flex-direction: column;
+          align-items: stretch;
+          gap: 0;
+        }
+        .nav.open {
+          display: flex;
+        }
+        .nav a {
+          min-height: 48px;
+          display: flex;
+          align-items: center;
+          padding: 10px 5px;
+          border-bottom: 1px solid #eee;
+          font-size: 14px;
+        }
+        .nav .reserve {
+          min-height: 48px;
+          margin-top: 12px;
+          text-align: center;
+        }
+      }
+      @media (max-width: 700px) {
+        .hero {
+          min-height: 500px;
+          height: 78vh;
+          height: 78svh;
+          max-height: 700px;
+        }
+        .slide {
+          background-position: 60% center;
+        }
+        .slide:before {
+          background: linear-gradient(90deg, #000b, #0005 65%, #0002);
+        }
+        .slide-content {
+          margin: 0 25px;
+          max-width: calc(100% - 50px);
+        }
+        .hero h1 {
+          font-size: clamp(36px, 10vw, 42px);
+        }
+        .hero p {
+          font-size: 12px;
+        }
+        .hero-stamp {
+          right: 7%;
+          bottom: 9%;
+          font-size: clamp(32px, 10vw, 40px);
+          opacity: 0.75;
+        }
+        .hero-arrows {
+          padding: 0 12px;
+        }
+        .arrow {
+          width: 44px;
+          height: 44px;
+        }
+        .dots {
+          left: 25px;
+        }
+        .section {
+          padding: 62px 22px;
+        }
+        .section-title {
+          font-size: clamp(28px, 8vw, 38px);
+        }
+        .section-head {
+          display: block;
+        }
+        .section-desc {
+          margin-top: 15px;
+        }
+        .menu-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 20px 12px;
+        }
+        .menu-card h3 {
+          font-size: 13px;
+        }
+        .feature {
+          padding: 62px 22px;
+        }
+        .feature-cards {
+          grid-template-columns: 1fr 1fr;
+          gap: 9px;
+        }
+        .feature-card {
+          padding: 20px 14px;
+          min-height: 175px;
+        }
+        .feature-card h3 {
+          font-size: 14px;
+        }
+        .history {
+          grid-template-columns: 1fr;
+          gap: 25px;
+        }
+        .history-photo {
+          aspect-ratio: 16/9;
+        }
+        .timeline {
+          grid-column: auto;
+          grid-template-columns: 1fr 1fr;
+        }
+        .news-cards {
+          grid-template-columns: 1fr;
+          gap: 14px;
+        }
+        .news-card {
+          display: block;
+        }
+        .news-card .photo {
+          aspect-ratio: 1.8;
+        }
+        .news-body {
+          padding: 13px;
+        }
+        .news-card h3 {
+          font-size: 14px;
+        }
+        .store {
+          padding: 60px 22px;
+        }
+        .store-inner {
+          grid-template-columns: 1fr;
+          gap: 25px;
+        }
+        .searchbox {
+          padding: 18px;
+        }
+        .searchrow {
+          flex-wrap: wrap;
+        }
+        .searchrow input {
+          min-height: 48px;
+        }
+        .searchrow button {
+          min-height: 48px;
+          padding: 0 18px;
+        }
+        .quicklinks button {
+          min-height: 44px;
+        }
+        .footer {
+          padding: 38px 22px 18px;
+        }
+        .footer-top {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 28px;
+        }
+        .footer-links {
+          justify-content: space-between;
+          gap: 14px;
+        }
+        .footer-links div {
+          font-size: 10px;
+        }
+        .social {
+          justify-content: flex-start;
+        }
+        .copyright {
+          margin-top: 26px;
+        }
+        .backtop {
+          bottom: 15px;
+          right: 15px;
+        }
+      }
+      @media (max-width: 380px) {
+        .topbar {
+          padding: 0 12px;
+        }
+        .brand-name {
+          font-size: 17px;
+        }
+        .brand-name small {
+          font-size: 7px;
+          letter-spacing: 0;
+        }
+        .section,
+        .feature,
+        .store {
+          padding-right: 16px;
+          padding-left: 16px;
+        }
+        .feature-cards {
+          grid-template-columns: 1fr;
+        }
+        .feature-card {
+          min-height: 0;
+        }
+        .timeline {
+          grid-template-columns: 1fr;
+        }
+        .footer {
+          padding-right: 16px;
+          padding-left: 16px;
+        }
+        .footer-links {
+          flex-wrap: wrap;
+          justify-content: flex-start;
+          gap: 22px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *:before,
+        *:after {
+          scroll-behavior: auto !important;
+          animation: none !important;
+          transition: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#home" aria-label="牛角ホーム"
+        ><span class="brand-mark">牛角</span
+        ><span class="brand-name"
+          >Gyu-Kaku<small>焼肉には、人を元気にする魔法がある。</small></span
+        ></a
+      ><button
+        class="menu-toggle"
+        type="button"
+        aria-label="メニューを開く"
+        aria-expanded="false"
+        aria-controls="nav"
+      >
+        ☰
+      </button>
+      <nav class="nav" id="nav">
+        <a href="#home">ホーム</a><a href="#menu">メニュー</a
+        ><a href="#store">店舗検索</a><a href="#feature">牛角のこだわり</a
+        ><a href="#history">歴史・会社情報</a><a href="#news">お知らせ</a
+        ><button
+          class="reserve"
+          onclick="
+            document
+              .querySelector('#store')
+              .scrollIntoView({ behavior: 'smooth' })
+          "
+        >
+          ▣　ご予約・店舗検索
+        </button>
+      </nav>
+    </header>
+    <main id="home">
+      <section class="hero" aria-label="メインビジュアル">
+        <div class="slides">
+          <div
+            class="slide active"
+            style="
+              background-image: url(&quot;https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=2000&q=90&quot;);
+            "
+          >
+            <div class="slide-content">
+              <div class="eyebrow">GOOD TIMES, GOOD BBQ</div>
+              <h1>焼肉で、<br />もっと、幸せに。</h1>
+              <p>おいしい時間を、大切な人と。</p>
+              <a class="cta" href="#menu"
+                >牛角のメニューを見る <span>→</span></a
+              >
+            </div>
+            <div class="hero-stamp">牛角<small>YAKINIKU EXPERIENCE</small></div>
+          </div>
+          <div
+            class="slide"
+            style="
+              background-image: url(&quot;https://images.unsplash.com/photo-1558030006-450675393462?auto=format&fit=crop&w=2000&q=90&quot;);
+            "
+          >
+            <div class="slide-content">
+              <div class="eyebrow">A LITTLE MORE DELICIOUS</div>
+              <h1>焼くたびに、<br />笑顔が広がる。</h1>
+              <p>こだわりの一皿を、みんなで囲もう。</p>
+              <a class="cta" href="#feature">牛角のこだわり <span>→</span></a>
+            </div>
+            <div class="hero-stamp">
+              おいしい！<small>SHARE THE MOMENT</small>
+            </div>
+          </div>
+          <div
+            class="slide"
+            style="
+              background-image: url(&quot;https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?auto=format&fit=crop&w=2000&q=90&quot;);
+            "
+          >
+            <div class="slide-content">
+              <div class="eyebrow">YOUR FAVORITE YAKINIKU</div>
+              <h1>今日はみんなで、<br />牛角へ。</h1>
+              <p>家族も、友達も。焼肉の楽しみ方いろいろ。</p>
+              <a class="cta" href="#store">お近くの店舗を探す <span>→</span></a>
+            </div>
+            <div class="hero-stamp">
+              乾杯！<small>MAKE IT A GREAT DAY</small>
+            </div>
+          </div>
+        </div>
+        <div class="hero-arrows">
+          <button class="arrow prev" aria-label="前のスライド">‹</button
+          ><button class="arrow next" aria-label="次のスライド">›</button>
+        </div>
+        <div class="dots">
+          <button class="dot active" aria-label="スライド1"></button
+          ><button class="dot" aria-label="スライド2"></button
+          ><button class="dot" aria-label="スライド3"></button>
+        </div>
+      </section>
+      <section class="section menu-section" id="menu">
+        <div class="menu-intro reveal">
+          <div class="eyebrow">MENU</div>
+          <h2 class="section-title">メニュー</h2>
+          <p>
+            定番の焼肉から、食べ放題コース、サイドメニューまで。今日の気分にぴったりの一品を見つけよう。
+          </p>
+          <a
+            class="cta dark"
+            href="https://www.gyukaku.ne.jp/menu/"
+            target="_blank"
+            rel="noopener"
+            >メニューを詳しく見る <span>→</span></a
+          >
+        </div>
+        <div class="menu-grid">
+          <a
+            class="menu-card reveal"
+            href="https://www.gyukaku.ne.jp/menu/"
+            target="_blank"
+            rel="noopener"
+            ><div class="photo">
+              <img
+                src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=85"
+                alt="焼き上がる肉料理"
+                loading="lazy"
+              />
+            </div>
+            <h3>焼肉</h3>
+            <p>カルビ・ハラミなど、人気の定番を。</p></a
+          >
+          <a
+            class="menu-card reveal"
+            href="https://www.gyukaku.ne.jp/menu/"
+            target="_blank"
+            rel="noopener"
+            ><div class="photo">
+              <img
+                src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=600&q=85"
+                alt="彩り豊かなサイドメニュー"
+                loading="lazy"
+              />
+            </div>
+            <h3>サイドメニュー</h3>
+            <p>キムチやサラダで食卓を豊かに。</p></a
+          >
+          <a
+            class="menu-card reveal"
+            href="https://www.gyukaku.ne.jp/menu/"
+            target="_blank"
+            rel="noopener"
+            ><div class="photo">
+              <img
+                src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=600&q=85"
+                alt="食事メニュー"
+                loading="lazy"
+              />
+            </div>
+            <h3>ご飯・麺</h3>
+            <p>〆まで楽しめる、うれしい一品。</p></a
+          >
+          <a
+            class="menu-card reveal"
+            href="https://www.gyukaku.ne.jp/menu/"
+            target="_blank"
+            rel="noopener"
+            ><div class="photo">
+              <img
+                src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=600&q=85"
+                alt="アイスクリームデザート"
+                loading="lazy"
+              />
+            </div>
+            <h3>デザート</h3>
+            <p>食後のお楽しみも忘れずに。</p></a
+          >
+          <a
+            class="menu-card reveal"
+            href="https://www.gyukaku.ne.jp/menu/"
+            target="_blank"
+            rel="noopener"
+            ><div class="photo">
+              <img
+                src="https://th.bing.com/th/id/OIP.R61GWl4bWVJn905zB_6f2wHaE8?w=285&h=190&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3"
+                alt="冷たいドリンク"
+                loading="lazy"
+              />
+            </div>
+            <h3>ドリンク</h3>
+            <p>乾杯から食後まで、お好みで。</p></a
+          >
+        </div>
+      </section>
+      <section class="feature" id="feature">
+        <div class="feature-bg"></div>
+        <div class="feature-inner">
+          <div class="reveal">
+            <div class="eyebrow">OUR PROMISE</div>
+            <h2 class="section-title">牛角が選ばれる理由</h2>
+            <p class="section-desc">
+              おいしさも、楽しさも、居心地も。何度でも来たくなる焼肉屋でありたい。
+            </p>
+          </div>
+          <div class="feature-cards">
+            <article class="feature-card reveal">
+              <div class="feature-icon">♨</div>
+              <h3>こだわりの焼肉</h3>
+              <p>焼きたてのおいしさを、みんなで囲む楽しさとともに。</p>
+            </article>
+            <article class="feature-card reveal">
+              <div class="feature-icon">♧</div>
+              <h3>みんなで楽しめる</h3>
+              <p>家族・友人・仲間と。いろいろなシーンに寄り添います。</p>
+            </article>
+            <article class="feature-card reveal">
+              <div class="feature-icon">⌂</div>
+              <h3>くつろげる空間</h3>
+              <p>会話が弾む、気取らず過ごせる焼肉時間を。</p>
+            </article>
+            <article class="feature-card reveal">
+              <div class="feature-icon">♡</div>
+              <h3>お客様の声を大切に</h3>
+              <p>創業時から続く、よりよいお店づくりへの姿勢。</p>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section class="section" id="history">
+        <div class="section-head reveal">
+          <div>
+            <div class="eyebrow">HISTORY</div>
+            <h2 class="section-title">牛角の歴史</h2>
+          </div>
+          <p class="section-desc">
+            三軒茶屋の小さなお店から、世界へ。お客様の声に耳を傾けながら歩んできた牛角のストーリー。
+          </p>
+        </div>
+        <div class="history">
+          <div class="history-photo reveal">
+            <img
+              src="https://images.unsplash.com/photo-1555992336-03a23c7b20ee?auto=format&fit=crop&w=900&q=85"
+              alt="飲食店の店構え"
+              loading="lazy"
+            />
+          </div>
+          <div class="history-copy reveal">
+            <div class="eyebrow">FROM 1996</div>
+            <h2 class="section-title">
+              おいしい時間を、<br />もっと多くの人へ。
+            </h2>
+            <p>
+              牛角ブランドは1996年、東京・三軒茶屋からスタート。おいしさ、価格、サービス、雰囲気を大切にしながら、焼肉を囲む楽しさを広げてきました。
+            </p>
+            <button class="cta dark" id="historyMore">
+              創業ストーリーを読む <span>→</span>
+            </button>
+          </div>
+          <div class="timeline reveal">
+            <div class="timeline-item">
+              <strong>1995</strong><span>三軒茶屋で前身となる焼肉店が開店</span>
+            </div>
+            <div class="timeline-item">
+              <strong>1996</strong><span>牛角ブランド創業</span>
+            </div>
+            <div class="timeline-item">
+              <strong>2000</strong><span>国内で多店舗展開が進む</span>
+            </div>
+            <div class="timeline-item">
+              <strong>2012</strong><span>コロワイドグループへ</span>
+            </div>
+            <div class="timeline-item">
+              <strong>2016</strong><span>海外事業の基盤を強化</span>
+            </div>
+            <div class="timeline-item">
+              <strong>2020s</strong
+              ><span>食べ放題・焼肉食堂など業態を拡大</span>
+            </div>
+            <div class="timeline-item">
+              <strong>2026</strong><span>ブランド創業30周年</span>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section news-section" id="news">
+        <div class="news-layout">
+          <div class="reveal">
+            <div class="eyebrow">NEWS & TOPICS</div>
+            <h2 class="section-title">お知らせ</h2>
+            <p class="section-desc">
+              メニューやキャンペーン、店舗情報など、牛角の最新情報をお届けします。
+            </p>
+            <a
+              class="cta"
+              href="https://www.gyukaku.ne.jp/"
+              target="_blank"
+              rel="noopener"
+              >公式サイトでお知らせを見る <span>→</span></a
+            >
+          </div>
+          <div class="news-cards">
+            <a
+              class="news-card reveal"
+              href="https://www.gyukaku.ne.jp/"
+              target="_blank"
+              rel="noopener"
+              ><div class="photo">
+                <img
+                  src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=700&q=85"
+                  alt="焼肉のイメージ"
+                  loading="lazy"
+                />
+              </div>
+              <div class="news-body">
+                <span class="tag">メニュー</span
+                ><span class="news-date">2026.01</span>
+                <h3>食べ放題コースに新しい選択肢</h3>
+                <p>気分や予算に合わせて、焼肉をもっと楽しく。</p>
+              </div></a
+            ><a
+              class="news-card reveal"
+              href="https://www.gyukaku.ne.jp/"
+              target="_blank"
+              rel="noopener"
+              ><div class="photo">
+                <img
+                  src="https://images.unsplash.com/photo-1558030006-450675393462?auto=format&fit=crop&w=700&q=85"
+                  alt="網の上の焼肉"
+                  loading="lazy"
+                />
+              </div>
+              <div class="news-body">
+                <span class="tag">商品情報</span
+                ><span class="news-date">2025.10</span>
+                <h3>グランドメニューをリニューアル</h3>
+                <p>定番の焼肉からサイドメニューまで。</p>
+              </div></a
+            ><a
+              class="news-card reveal"
+              href="https://www.gyukaku.ne.jp/"
+              target="_blank"
+              rel="noopener"
+              ><div class="photo">
+                <img
+                  src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=700&q=85"
+                  alt="飲食店の店内"
+                  loading="lazy"
+                />
+              </div>
+              <div class="news-body">
+                <span class="tag">ブランド</span
+                ><span class="news-date">2026</span>
+                <h3>牛角ブランド創業30周年</h3>
+                <p>これからも、焼肉を囲む幸せな時間を。</p>
+              </div></a
+            >
+          </div>
+        </div>
+      </section>
+      <section class="store" id="store">
+        <div class="store-inner">
+          <div class="reveal">
+            <div class="eyebrow">FIND A RESTAURANT</div>
+            <h2>店舗を探す</h2>
+            <p>
+              お近くの牛角で、焼肉の楽しい時間を。<br />エリアや駅名から店舗を検索できます。
+            </p>
+            <a
+              class="cta"
+              href="https://www.gyukaku.ne.jp/shop/"
+              target="_blank"
+              rel="noopener"
+              >店舗検索ページへ <span>→</span></a
+            >
+          </div>
+          <div class="searchbox reveal">
+            <label for="areaInput">⌖　エリア・駅名・店舗名で検索</label>
+            <div class="searchrow">
+              <input
+                id="areaInput"
+                type="search"
+                placeholder="例：新宿、横浜、大阪"
+              /><button id="searchStore">検索　→</button>
+            </div>
+            <div class="quicklinks">
+              <button data-area="東京都">東京都</button
+              ><button data-area="神奈川県">神奈川県</button
+              ><button data-area="大阪府">大阪府</button
+              ><button data-area="愛知県">愛知県</button
+              ><button data-area="北海道">北海道</button>
+            </div>
+            <div class="search-result" id="searchResult" aria-live="polite">
+              検索語を入力するか、エリアを選択してください。
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="footer">
+      <div class="footer-top">
+        <a class="brand" href="#home"
+          ><span class="brand-mark">牛角</span
+          ><span class="brand-name"
+            >Gyu-Kaku<small>焼肉には、人を元気にする魔法がある。</small></span
+          ></a
+        >
+        <div class="footer-links">
+          <div>
+            <strong>メニュー</strong><a href="#menu">メニュー</a
+            ><a href="#feature">牛角のこだわり</a
+            ><a href="#history">牛角の歴史</a>
+          </div>
+          <div>
+            <strong>店舗・サポート</strong><a href="#store">店舗検索</a
+            ><a href="https://www.gyukaku.ne.jp/" target="_blank" rel="noopener"
+              >お問い合わせ</a
+            ><a href="https://www.gyukaku.ne.jp/" target="_blank" rel="noopener"
+              >プライバシーポリシー</a
+            >
+          </div>
+          <div>
+            <strong>公式リンク</strong
+            ><a href="https://www.gyukaku.ne.jp/" target="_blank" rel="noopener"
+              >牛角公式サイト ↗</a
+            ><a href="https://www.reins.co.jp/" target="_blank" rel="noopener"
+              >レインズインターナショナル ↗</a
+            ><a
+              href="https://www.colowide.co.jp/"
+              target="_blank"
+              rel="noopener"
+              >コロワイド ↗</a
+            >
+          </div>
+        </div>
+        <div class="social">
+          <a
+            href="https://www.instagram.com/"
+            target="_blank"
+            rel="noopener"
+            aria-label="Instagram"
+            >◎</a
+          ><a
+            href="https://x.com/"
+            target="_blank"
+            rel="noopener"
+            aria-label="X"
+            >𝕏</a
+          ><a
+            href="https://www.youtube.com/"
+            target="_blank"
+            rel="noopener"
+            aria-label="YouTube"
+            >▶</a
+          >
+        </div>
+      </div>
+      <div class="copyright">
+        © 2026 Gyu-Kaku concept homepage. This is an unofficial design sample.
+      </div>
+    </footer>
+    <button class="backtop" aria-label="ページ上部へ戻る">↑</button>
+    <div
+      class="modal-backdrop"
+      id="storyModal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modalTitle"
+    >
+      <div class="modal">
+        <button class="modal-close" aria-label="閉じる">×</button>
+        <div class="eyebrow">OUR STORY</div>
+        <h2 id="modalTitle">お客様の声から始まった牛角</h2>
+        <p>
+          牛角の前身となる焼肉店は、1995年に東京・三軒茶屋で開店。小さなお店から、お客様の声を聞き、課題を一つずつ改善する姿勢を大切にしてきました。1996年に牛角ブランドが誕生し、「おいしくて、安くて、サービス・雰囲気が良い」焼肉店を目指して歩みを進めました。
+        </p>
+        <p>
+          ※歴史紹介はブランドに関する公開情報をもとにした概要です。最新の公式情報は牛角・レインズインターナショナルのサイトをご確認ください。
+        </p>
+        <a
+          class="cta dark"
+          href="https://www.reins.co.jp/"
+          target="_blank"
+          rel="noopener"
+          >運営会社について <span>→</span></a
+        >
+      </div>
+    </div>
+    <script>
+      const slides = [...document.querySelectorAll(".slide")],
+        dots = [...document.querySelectorAll(".dot")];
+      let current = 0,
+        timer;
+      function showSlide(n) {
+        current = (n + slides.length) % slides.length;
+        slides.forEach((s, i) => s.classList.toggle("active", i === current));
+        dots.forEach((d, i) => d.classList.toggle("active", i === current));
+      }
+      function startSlider() {
+        clearInterval(timer);
+        timer = setInterval(() => showSlide(current + 1), 5500);
+      }
+      document.querySelector(".prev").addEventListener("click", () => {
+        showSlide(current - 1);
+        startSlider();
+      });
+      document.querySelector(".next").addEventListener("click", () => {
+        showSlide(current + 1);
+        startSlider();
+      });
+      dots.forEach((d, i) =>
+        d.addEventListener("click", () => {
+          showSlide(i);
+          startSlider();
+        }),
+      );
+      startSlider();
+      const toggle = document.querySelector(".menu-toggle"),
+        nav = document.querySelector(".nav");
+      toggle.addEventListener("click", () => {
+        const open = nav.classList.toggle("open");
+        toggle.setAttribute("aria-expanded", open);
+        toggle.setAttribute(
+          "aria-label",
+          open ? "メニューを閉じる" : "メニューを開く",
+        );
+        toggle.textContent = open ? "×" : "☰";
+      });
+      function closeNav() {
+        nav.classList.remove("open");
+        toggle.setAttribute("aria-expanded", "false");
+        toggle.setAttribute("aria-label", "メニューを開く");
+        toggle.textContent = "☰";
+      }
+      nav.querySelectorAll("a, button").forEach((item) =>
+        item.addEventListener("click", () => {
+          closeNav();
+        }),
+      );
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") closeNav();
+      });
+      const observer = new IntersectionObserver(
+        (entries) =>
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("visible");
+              observer.unobserve(e.target);
+            }
+          }),
+        { threshold: 0.12 },
+      );
+      document
+        .querySelectorAll(".reveal")
+        .forEach((el) => observer.observe(el));
+      const backtop = document.querySelector(".backtop");
+      window.addEventListener("scroll", () =>
+        backtop.classList.toggle("show", window.scrollY > 500),
+      );
+      backtop.addEventListener("click", () =>
+        window.scrollTo({ top: 0, behavior: "smooth" }),
+      );
+      const input = document.querySelector("#areaInput"),
+        result = document.querySelector("#searchResult");
+      function searchStore() {
+        const q = input.value.trim();
+        if (!q) {
+          result.textContent = "エリア名や駅名を入力してください。";
+          input.focus();
+          return;
+        }
+        result.innerHTML =
+          "「" +
+          q.replace(
+            /[&<>"']/g,
+            (c) =>
+              ({
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#39;",
+              })[c],
+          ) +
+          '」の店舗を公式サイトで検索できます。 <a href="https://www.gyukaku.ne.jp/shop/" target="_blank" rel="noopener" style="color:#c91520;text-decoration:underline;font-weight:700">公式店舗検索を開く ↗</a>';
+      }
+      document
+        .querySelector("#searchStore")
+        .addEventListener("click", searchStore);
+      input.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") searchStore();
+      });
+      document.querySelectorAll("[data-area]").forEach((b) =>
+        b.addEventListener("click", () => {
+          input.value = b.dataset.area;
+          searchStore();
+        }),
+      );
+      const modal = document.querySelector("#storyModal");
+      document
+        .querySelector("#historyMore")
+        .addEventListener("click", () => modal.classList.add("open"));
+      document
+        .querySelector(".modal-close")
+        .addEventListener("click", () => modal.classList.remove("open"));
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) modal.classList.remove("open");
+      });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") modal.classList.remove("open");
+      });
+    </script>
+  </body>
+</html>
